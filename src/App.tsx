@@ -1,24 +1,27 @@
-import React from 'react';
-import { Navbar } from './components/Navbar';
-import { HeroSection } from './components/HeroSection';
-import { NewsSection } from './components/NewsSection';
-import { TeamsSection } from './components/TeamsSection';
-import { JoinUsSection } from './components/JoinUsSection';
-import { ContactSection } from './components/ContactSection';
-import { AllNewsPage } from './components/AllNewsPage';
-import { Footer } from './components/Footer';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Navbar } from "./components/Navbar";
+import { Footer } from "./components/Footer";
+import { Home } from "./components/Home";
+import { AllNewsPage } from "./components/AllNewsPage";
 
 const App: React.FC = () => {
   return (
-    <main className="w-full min-h-screen bg-slate-950">
-      <Navbar />
-      <HeroSection />
-      <NewsSection />
-      <TeamsSection />
-      <JoinUsSection />
-      <ContactSection />
-      <Footer />
-    </main>
+    <Router>
+      <main className="w-full min-h-screen bg-slate-950">
+        <Navbar />
+
+        <Routes>
+          {/* Ruta para la portada */}
+          <Route path="/" element={<Home />} />
+
+          {/* Ruta para ver todas las noticias */}
+          <Route path="/noticias" element={<AllNewsPage />} />
+        </Routes>
+
+        <Footer />
+      </main>
+    </Router>
   );
 };
 
