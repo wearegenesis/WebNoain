@@ -22,8 +22,16 @@ export const AllNewsPage: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [loading, setLoading] = useState(true);
 
+  // FIX 1: Scroll al inicio al cargar la página
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 200);
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Ajustamos el umbral de activación
+      setIsScrolled(window.scrollY > 120);
+    };
     window.addEventListener("scroll", handleScroll);
 
     const query = `*[_type == "noticia"] | order(fecha desc) {
@@ -101,30 +109,36 @@ export const AllNewsPage: React.FC = () => {
         </div>
       </header>
 
-      {/* TOOLBAR */}
+      {/* TOOLBAR CORREGIDA CON MARGEN RESPECTO AL NAV */}
       <div
-        className={`sticky top-[60px] z-40 transition-all duration-300 ${
+        className={`sticky z-[50] transition-all duration-500 ${
+          /* Ajustamos 'top' para que no choque con el Navbar. 
+             Si el Navbar mide 64px, 'top-[80px]' deja 16px de aire.
+          */
           isScrolled
-            ? "bg-slate-950/95 backdrop-blur-md shadow-2xl border-b border-white/10 py-4"
-            : "bg-slate-950 border-b border-transparent py-6"
+            ? "top-[80px] md:top-[90px] mx-4 md:mx-12 bg-slate-900/90 backdrop-blur-xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/10 py-4 rounded-2xl"
+            : "top-[64px] md:top-[70px] bg-transparent border-b border-transparent py-6"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 md:px-12 flex flex-col lg:flex-row items-center justify-between gap-4">
+        <div className="max-w-7xl mx-auto px-6 flex flex-col lg:flex-row items-center justify-between gap-4">
+          {/* Filtros */}
           <div className="flex flex-wrap justify-center gap-2">
             {CATEGORIES.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 border ${
+                className={`px-4 py-2 rounded-full text-[10px] md:text-xs font-black uppercase tracking-widest transition-all duration-300 border ${
                   activeCategory === cat
                     ? "bg-[#FF6B95] border-[#FF6B95] text-white shadow-[0_0_15px_rgba(255,107,149,0.4)]"
-                    : "bg-slate-900 border-slate-700 text-slate-400 hover:border-slate-500 hover:text-white hover:bg-slate-800"
+                    : "bg-slate-950/50 border-slate-700 text-slate-400 hover:border-slate-500 hover:text-white"
                 }`}
               >
                 {cat}
               </button>
             ))}
           </div>
+
+          {/* Buscador */}
           <div className="relative w-full lg:w-80 group">
             <Search className="absolute inset-y-0 left-3 my-auto w-4 h-4 text-slate-500 group-focus-within:text-[#FF6B95] transition-colors" />
             <input
@@ -132,13 +146,13 @@ export const AllNewsPage: React.FC = () => {
               placeholder="Buscar noticias..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-slate-800/50 text-white border border-slate-700 rounded-full py-2.5 pl-10 pr-4 text-sm focus:outline-none focus:border-[#FF6B95] focus:ring-1 focus:ring-[#FF6B95] transition-all"
+              className="w-full bg-slate-950/50 text-white border border-slate-800 rounded-full py-2.5 pl-10 pr-4 text-sm focus:outline-none focus:border-[#FF6B95] transition-all placeholder:text-slate-600 shadow-inner"
             />
           </div>
         </div>
       </div>
 
-      <main className="max-w-7xl mx-auto px-6 md:px-12 py-8 min-h-[50vh]">
+      <main className="max-w-7xl mx-auto px-6 md:px-12 py-12 min-h-[50vh]">
         {loading ? (
           <div className="text-center py-20 text-slate-500 font-bold uppercase tracking-widest">
             Cargando...
@@ -200,7 +214,7 @@ export const AllNewsPage: React.FC = () => {
               ))}
             </div>
 
-            {/* PAGINACIÓN DINÁMICA RESTAURADA */}
+            {/* PAGINACIÓN */}
             {filteredNews.length > ITEMS_PER_PAGE && (
               <div className="flex items-center justify-center gap-2 mb-12">
                 <button
@@ -208,7 +222,7 @@ export const AllNewsPage: React.FC = () => {
                   disabled={currentPage === 1}
                   onClick={() => {
                     setCurrentPage((p) => Math.max(1, p - 1));
-                    window.scrollTo(0, 400);
+                    window.scrollTo({ top: 400, behavior: "smooth" });
                   }}
                 >
                   <ChevronLeft className="w-5 h-5" />
@@ -220,7 +234,7 @@ export const AllNewsPage: React.FC = () => {
                       key={page}
                       onClick={() => {
                         setCurrentPage(page);
-                        window.scrollTo(0, 400);
+                        window.scrollTo({ top: 400, behavior: "smooth" });
                       }}
                       className={`w-10 h-10 flex items-center justify-center rounded font-bold text-sm transition-all ${
                         currentPage === page
@@ -238,7 +252,7 @@ export const AllNewsPage: React.FC = () => {
                   disabled={currentPage === totalPages}
                   onClick={() => {
                     setCurrentPage((p) => Math.min(totalPages, p + 1));
-                    window.scrollTo(0, 400);
+                    window.scrollTo({ top: 400, behavior: "smooth" });
                   }}
                 >
                   <ChevronRight className="w-5 h-5" />
