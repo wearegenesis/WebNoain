@@ -21,11 +21,9 @@ export const Navbar: React.FC = () => {
   const handleNavigation = (e: React.MouseEvent, targetId: string) => {
     e.preventDefault();
 
-    // Si estamos en la home ('/'), hacemos scroll suave
     if (location.pathname === "/") {
       const element = document.getElementById(targetId);
       if (element) {
-        // Offset para el sticky header (ajuste de 80px)
         const headerOffset = 80;
         const elementPosition = element.getBoundingClientRect().top;
         const offsetPosition =
@@ -37,8 +35,6 @@ export const Navbar: React.FC = () => {
         });
       }
     } else {
-      // Si NO estamos en la home, navegamos a la home y luego hacemos scroll
-      // El setTimeout da tiempo a que cargue la página antes de buscar el ID
       navigate("/");
       setTimeout(() => {
         const element = document.getElementById(targetId);
@@ -67,7 +63,7 @@ export const Navbar: React.FC = () => {
         }`}
       >
         <div className="px-6 md:px-12 max-w-[1920px] mx-auto flex items-center justify-between">
-          {/* Brand - Siempre lleva arriba del todo */}
+          {/* Brand */}
           <Link
             to="/"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
@@ -76,22 +72,20 @@ export const Navbar: React.FC = () => {
             <img
               src="/LogoSinFondo.png"
               alt="Logo CV Noáin"
-              /* CAMBIOS: 
-                 1. h-16 (64px) en móvil y md:h-20 (80px) en escritorio.
-                 2. -mr-3 para compensar el aumento de tamaño y pegarlo más al texto.
-              */
-              className="h-16 md:h-20 w-auto object-contain transition-transform duration-300 group-hover:scale-105 drop-shadow-lg -mr-3"
+              className="h-14 md:h-20 w-auto object-contain transition-transform duration-300 group-hover:scale-105 drop-shadow-lg -mr-2 md:-mr-3"
             />
-
-            <div className="flex flex-col leading-none hidden sm:flex pl-1">
-              {/* Mantengo el texto en text-2xl pero lo ajusto para que se vea potente al lado del logo grande */}
-              <span className="font-black text-xl md:text-2xl tracking-tighter text-white group-hover:text-[#FF6B95] transition-colors uppercase">
+            <div className="flex flex-col leading-none pl-1">
+              <span className="font-black text-lg md:text-2xl tracking-tighter text-white group-hover:text-[#FF6B95] transition-colors uppercase">
                 CV NOÁIN
               </span>
             </div>
           </Link>
-          {/* Desktop Links */}
-          <div className="hidden md:flex items-center space-x-10">
+
+          {/* Desktop Links: 
+            He cambiado 'md:flex' por 'lg:flex' para que en tablets o móviles rotados 
+            no intente meter los links y use siempre la hamburguesa.
+          */}
+          <div className="hidden lg:flex items-center space-x-10">
             {navLinks.map((link) => (
               <a
                 key={link.name}
@@ -104,9 +98,12 @@ export const Navbar: React.FC = () => {
             ))}
           </div>
 
-          {/* Mobile Menu Toggle */}
+          {/* Mobile Menu Toggle: 
+            Visible hasta que llegamos a resolución 'lg' (1024px), 
+            asegurando que en móviles rotados salga la hamburguesa.
+          */}
           <button
-            className="md:hidden text-white hover:text-[#FF6B95] transition-colors relative z-50"
+            className="lg:hidden text-white hover:text-[#FF6B95] transition-colors relative z-50 p-2"
             onClick={() => setIsMobileMenuOpen(true)}
           >
             <Menu className="w-8 h-8" />
@@ -114,9 +111,9 @@ export const Navbar: React.FC = () => {
         </div>
       </nav>
 
-      {/* Menú Móvil */}
+      {/* Menú Móvil - Soporte para scroll si el móvil está rotado */}
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 bg-slate-950 z-[100] flex flex-col items-center justify-center animate-fadeIn">
+        <div className="fixed inset-0 bg-slate-950 z-[100] flex flex-col items-center justify-center animate-fadeIn overflow-y-auto py-10">
           <button
             onClick={() => setIsMobileMenuOpen(false)}
             className="absolute top-6 right-6 text-white hover:text-[#FF6B95] transition-colors p-2"
@@ -124,7 +121,7 @@ export const Navbar: React.FC = () => {
             <X className="w-10 h-10" />
           </button>
 
-          <div className="flex flex-col items-center gap-8">
+          <div className="flex flex-col items-center gap-6 md:gap-8 my-auto">
             <Link
               to="/"
               className="text-3xl font-black uppercase tracking-tighter text-[#FF6B95] mb-4"
@@ -138,7 +135,7 @@ export const Navbar: React.FC = () => {
                 key={link.name}
                 href={`#${link.id}`}
                 onClick={(e) => handleNavigation(e, link.id)}
-                className="text-2xl font-bold uppercase tracking-widest text-white hover:text-[#FF6B95] transition-colors"
+                className="text-xl md:text-2xl font-bold uppercase tracking-widest text-white hover:text-[#FF6B95] transition-colors"
               >
                 {link.name}
               </a>

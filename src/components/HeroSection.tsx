@@ -5,77 +5,76 @@ export const HeroSection: React.FC = () => {
   return (
     <div
       id="inicio"
-      className="relative h-screen w-full overflow-hidden bg-slate-950"
+      className="relative min-h-[100dvh] w-full bg-slate-950 flex flex-col overflow-x-hidden"
     >
-      {/* --- BLOQUE DE FONDO (IMAGEN + OVERLAY) --- */}
-      <div className="absolute inset-0">
-        {/* 1. Imagen de Acción */}
+      {/* --- FONDO --- */}
+      <div className="absolute inset-0 z-0">
         <img
           src="https://i.ibb.co/21xmGYwY/Balon.png"
-          alt="Partido de voleibol en pista cubierta"
-          className="h-full w-full object-cover"
+          alt="Voleibol Noáin"
+          className="h-full w-full object-cover object-center"
         />
-        {/* 2. Overlay Oscuro */}
-        <div className="absolute inset-0 bg-slate-950/70"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-950/50 to-slate-950"></div>
       </div>
 
-      {/* 3. Contenido Principal */}
-      <div className="relative z-10 h-full border-b-4 border-[#FF6B95] flex flex-col items-center justify-center text-center px-4 sm:px-6 lg:px-8">
-        {/* Decorative Tag */}
-        <div className="mb-6 flex items-center space-x-2 bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/20">
-          <span className="relative flex h-3 w-3">
+      {/* --- CONTENIDO --- */}
+      {/* Eliminamos el justify-center fijo y usamos padding dinámico. 
+          Esto permite que si en un móvil Android no cabe todo, el usuario pueda hacer scroll
+          naturalmente en lugar de ver los elementos amontonados.
+      */}
+      <div className="relative z-10 w-full flex-1 flex flex-col items-center justify-center text-center px-6 py-16 md:py-24">
+        {/* Etiqueta Temporada - Tamaño reducido */}
+        <div className="mb-6 flex items-center space-x-2 bg-white/10 backdrop-blur-md px-3 py-1 rounded-full border border-white/20">
+          <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FF6B95] opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-3 w-3 bg-[#FF6B95]"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#FF6B95]"></span>
           </span>
-          <span className="text-xs font-bold tracking-widest uppercase text-white">
+          <span className="text-[10px] font-bold tracking-widest uppercase text-white">
             Temporada 2024/25
           </span>
         </div>
 
-        {/* Main Title */}
-        <h1 className="text-5xl md:text-7xl lg:text-9xl font-black text-white tracking-widest leading-none mb-8 drop-shadow-2xl">
-          SOY <br className="md:hidden" />
-          EL <span className="text-[#FF6B95]">MEJOR</span>
+        {/* Título - Bajamos de 9xl a 5xl/6xl en móvil para que sea UNIVERSAL */}
+        <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black text-white tracking-tighter leading-[0.9] mb-6 uppercase drop-shadow-2xl">
+          SOY EL <br className="md:hidden" />
+          <span className="text-[#FF6B95]">MEJOR</span>
         </h1>
 
-        {/* Subtitle / Motto */}
-        <p className="max-w-2xl text-lg md:text-xl text-slate-300 font-medium tracking-wide mb-10">
-          Pasión, garra y voleibol en estado puro. Bienvenidos a la casa del
-          Club Voleibol Noáin.
+        {/* Subtítulo - Más compacto */}
+        <p className="max-w-md md:max-w-2xl text-sm md:text-xl text-slate-300 font-medium tracking-wide mb-10 px-4 opacity-90 leading-relaxed">
+          Pasión, garra y voleibol en estado puro.{" "}
+          <br className="hidden md:block" />
+          Bienvenidos a la casa del Club Voleibol Noáin.
         </p>
 
-        {/* Buttons Container */}
-        <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-          {/* Botón Principal: Únete -> Ancla a #inscripciones */}
+        {/* Botones - Ajustados para no fallar en pantallas estrechas */}
+        <div className="flex flex-col sm:flex-row gap-4 w-full max-w-[280px] sm:max-w-none justify-center items-center">
           <a
             href="#inscripciones"
-            className="group relative px-8 py-4 bg-[#FF6B95] text-white font-bold text-sm tracking-widest uppercase overflow-hidden transition-transform transform active:scale-95 hover:brightness-110 flex items-center justify-center"
+            className="w-full sm:w-auto group relative px-8 py-4 bg-[#FF6B95] text-white font-bold text-xs md:text-sm tracking-widest uppercase transition-all active:scale-95 flex items-center justify-center shadow-lg shadow-[#FF6B95]/20"
           >
-            <span className="relative z-10 flex items-center justify-center gap-2">
+            <span className="relative z-10 flex items-center gap-2">
               ÚNETE AL CLUB{" "}
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </span>
-            {/* Slanted shine effect */}
-            <div className="absolute top-0 -left-[100%] w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 group-hover:animate-shine" />
           </a>
 
-          {/* Botón Secundario: Equipos -> Ancla a #equipos */}
           <a
             href="#equipos"
-            className="px-8 py-4 border-2 border-white text-white font-bold text-sm tracking-widest uppercase hover:bg-white hover:text-slate-950 transition-colors duration-300 flex items-center justify-center"
+            className="w-full sm:w-auto px-8 py-4 border-2 border-white/30 text-white font-bold text-xs md:text-sm tracking-widest uppercase hover:bg-white hover:text-slate-950 transition-all duration-300 flex items-center justify-center backdrop-blur-sm"
           >
-            NUESTROS EQUIPOS
+            EQUIPOS
           </a>
         </div>
-
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-8 w-full flex flex-col items-center justify-center opacity-80 animate-bounce">
-          <span className="text-[10px] uppercase tracking-[0.3em] text-white mb-2">
-            Baja
-          </span>
-          <ChevronDown className="w-6 h-6 text-[#FF6B95]" />
-        </div>
       </div>
+
+      {/* Indicador de scroll - Solo visible si hay mucha altura vertical (Portrait) */}
+      <div className="relative pb-8 w-full hidden md:flex flex-col items-center justify-center opacity-40 animate-bounce pointer-events-none">
+        <ChevronDown className="w-6 h-6 text-[#FF6B95]" />
+      </div>
+
+      {/* Borde inferior Neón */}
+      <div className="absolute bottom-0 left-0 w-full h-1 bg-[#FF6B95] shadow-[0_0_15px_rgba(255,107,149,0.6)] z-20"></div>
     </div>
   );
 };
