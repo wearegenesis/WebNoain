@@ -55,7 +55,7 @@ export const TeamsSection: React.FC = () => {
       {/* Section Header */}
       <div className="relative max-w-7xl mx-auto mb-16 text-center md:text-left">
         <div className="inline-block bg-[#FF6B95] text-slate-950 text-xs font-black px-3 py-1 uppercase tracking-widest mb-4 transform -skew-x-12">
-          Temporada 24/25
+          Temporada 26/27
         </div>
         <h2 className="text-4xl md:text-6xl font-black text-white tracking-widest uppercase leading-none">
           NUESTROS{" "}
