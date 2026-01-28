@@ -10,7 +10,7 @@ export const HeroSection: React.FC = () => {
       {/* --- FONDO --- */}
       <div className="absolute inset-0 z-0">
         <img
-          src="/public/Balon.png"
+          src="/Balon.png"
           alt="Voleibol Noáin"
           className="h-full w-full object-cover object-center"
         />
