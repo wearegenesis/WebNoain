@@ -18,12 +18,8 @@ export const HeroSection: React.FC = () => {
       </div>
 
       {/* --- CONTENIDO --- */}
-      {/* Eliminamos el justify-center fijo y usamos padding dinámico. 
-          Esto permite que si en un móvil Android no cabe todo, el usuario pueda hacer scroll
-          naturalmente en lugar de ver los elementos amontonados.
-      */}
       <div className="relative z-10 w-full flex-1 flex flex-col items-center justify-center text-center px-6 py-16 md:py-24">
-        {/* Etiqueta Temporada - Tamaño reducido */}
+        {/* Etiqueta Temporada */}
         <div className="mb-6 flex items-center space-x-2 bg-white/10 backdrop-blur-md px-3 py-1 rounded-full border border-white/20">
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FF6B95] opacity-75"></span>
@@ -34,20 +30,22 @@ export const HeroSection: React.FC = () => {
           </span>
         </div>
 
-        {/* Título - Bajamos de 9xl a 5xl/6xl en móvil para que sea UNIVERSAL */}
-        <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black text-white tracking-tighter leading-[0.9] mb-6 uppercase drop-shadow-2xl">
+        {/* Título CORREGIDO */}
+        {/* CAMBIO: he puesto 'leading-[1.1]' en móvil para separar las líneas y evitar que la tilde toque.
+            En desktop (md:) vuelve a 'leading-[0.9]' porque ahí el texto va en una sola línea. */}
+        <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black text-white tracking-tighter leading-[1.1] md:leading-[0.9] mb-6 uppercase drop-shadow-2xl">
           C.V. <br className="md:hidden" />
           <span className="text-[#FF6B95]">NOÁIN</span>
         </h1>
 
-        {/* Subtítulo - Más compacto */}
+        {/* Subtítulo */}
         <p className="max-w-md md:max-w-2xl text-sm md:text-xl text-slate-300 font-medium tracking-wide mb-10 px-4 opacity-90 leading-relaxed">
           Pasión, garra y voleibol en estado puro.{" "}
           <br className="hidden md:block" />
           Bienvenidos a la casa del Club Voleibol Noáin.
         </p>
 
-        {/* Botones - Ajustados para no fallar en pantallas estrechas */}
+        {/* Botones */}
         <div className="flex flex-col sm:flex-row gap-4 w-full max-w-[280px] sm:max-w-none justify-center items-center">
           <a
             href="#inscripciones"
@@ -58,17 +56,10 @@ export const HeroSection: React.FC = () => {
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </span>
           </a>
-
-          {/*<a
-            href="#equipos"
-            className="w-full sm:w-auto px-8 py-4 border-2 border-white/30 text-white font-bold text-xs md:text-sm tracking-widest uppercase hover:bg-white hover:text-slate-950 transition-all duration-300 flex items-center justify-center backdrop-blur-sm"
-          >
-            EQUIPOS
-          </a>*/}
         </div>
       </div>
 
-      {/* Indicador de scroll - Solo visible si hay mucha altura vertical (Portrait) */}
+      {/* Indicador de scroll */}
       <div className="relative pb-8 w-full hidden md:flex flex-col items-center justify-center opacity-40 animate-bounce pointer-events-none">
         <ChevronDown className="w-6 h-6 text-[#FF6B95]" />
       </div>

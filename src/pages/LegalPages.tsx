@@ -73,7 +73,7 @@ export const AvisoLegal: React.FC = () => (
         <strong>Denominación Social:</strong> CLUB VOLEIBOL NOÁIN
       </li>
       <li>
-        <strong>NIF:</strong> [EN TRÁMITE]
+        <strong>NIF:</strong> G-00000000 (EN TRÁMITE)
       </li>
       <li>
         <strong>Domicilio Social:</strong> Calle Real, 24, 31110 Noáin (Valle de
