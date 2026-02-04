@@ -59,12 +59,12 @@ export const HeroSection: React.FC = () => {
             </span>
           </a>
 
-          <a
+          {/*<a
             href="#equipos"
             className="w-full sm:w-auto px-8 py-4 border-2 border-white/30 text-white font-bold text-xs md:text-sm tracking-widest uppercase hover:bg-white hover:text-slate-950 transition-all duration-300 flex items-center justify-center backdrop-blur-sm"
           >
             EQUIPOS
-          </a>
+          </a>*/}
         </div>
       </div>
 
